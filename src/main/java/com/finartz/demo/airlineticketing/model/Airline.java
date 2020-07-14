@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "airline")
-public class Airline extends BaseModel{
+public class Airline extends BaseModel {
 
     @Column(name = "name", nullable = false, length = 50)
     private String name;

@@ -1,22 +1,17 @@
 package com.finartz.demo.airlineticketing.model;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "route")
 public class Route extends BaseModel {
 
-    @OneToOne
-    @JoinColumn(name = "from", referencedColumnName = "id")
-    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "from_id", referencedColumnName = "id")
     private Airport from;
 
-    @OneToOne
-    @JoinColumn(name = "to", referencedColumnName = "id")
-    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "to_id", referencedColumnName = "id")
     private Airport to;
 
     public Route() {
