@@ -1,12 +1,20 @@
 package com.finartz.demo.airlineticketing.model;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "flight")
+@NamedQueries({
+        @NamedQuery(name = "findFlightByFlightNumberDateCarrier",
+                query = "SELECT f FROM Flight f WHERE (f.flightDate = :flightDate) AND (f.flightNumber = :flightNumber) AND (f.flightCarrier.shortCode = :fcShortCode)")
+})
 public class Flight extends BaseModel{
     @Column(name = "flight_carrier", nullable = false)
     private Airline flightCarrier;
@@ -20,12 +28,11 @@ public class Flight extends BaseModel{
     @Column(name = "ticket_charge")
     private float ticketCharge;
 
-    @Column(name = "flight_date")
+    @Column(name = "flight_date", nullable = false)
     private Timestamp flightDate;
 
     @Column(name = "flight_number")
     private int flightNumber;
-
 
     public Flight() {
     }

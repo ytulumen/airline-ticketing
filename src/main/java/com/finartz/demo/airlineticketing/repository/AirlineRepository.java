@@ -14,4 +14,8 @@ public class AirlineRepository extends BaseRepository<Airline> {
     public Class<Airline> getClassType() {
         return Airline.class;
     }
+
+    public Airline findAirlineByShortCode(String shortCode) {
+        return entityManager.createNamedQuery("findAirlineByShortCode", Airline.class).setParameter("shortCode", shortCode).getSingleResult();
+    }
 }

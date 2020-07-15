@@ -1,9 +1,14 @@
 package com.finartz.demo.airlineticketing.model;
 
 import javax.persistence.*;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 
 @Entity
 @Table(name = "route")
+@NamedQueries({
+        @NamedQuery(name = "findRouteByArrivalAndDestination", query = "SELECT r FROM Route r WHERE r.from.shortCode = :fromShortCode AND r.to.shortCode = :toShortCode")
+})
 public class Route extends BaseModel {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

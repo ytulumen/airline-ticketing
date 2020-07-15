@@ -10,17 +10,11 @@ import org.hibernate.annotations.NamedQuery;
         @NamedQuery(name = "findAirportByShortCode", query = "SELECT a FROM Airport a WHERE a.shortCode = :shortCode")
 })
 public class Airport extends BaseModel {
-    @Column(name = "name", unique = false, nullable = false, length = 50)
+    @Column(name = "name", nullable = false, length = 50)
     private String name;
 
     @Column(name = "short_code", unique = true, nullable = false, length = 3)
     private String shortCode;
-
-    @OneToOne(mappedBy = "to")
-    private Route toRoute;
-
-    @OneToOne(mappedBy = "from")
-    private Route fromRoute;
 
     public Airport() {
     }

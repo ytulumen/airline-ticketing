@@ -1,11 +1,17 @@
 package com.finartz.demo.airlineticketing.model;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "airline")
+@NamedQueries({
+        @NamedQuery(name = "findAirlineByShortCode", query = "SELECT a FROM Airline a WHERE a.shortCode = :shortCode")
+})
 public class Airline extends BaseModel {
 
     @Column(name = "name", nullable = false, length = 50)
