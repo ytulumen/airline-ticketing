@@ -7,9 +7,10 @@ import com.finartz.demo.airlineticketing.model.Route;
 import com.finartz.demo.airlineticketing.repository.FlightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
-import java.sql.Timestamp;
+import java.util.Optional;
 
 @Service(value = "flightService")
 public class FlightService extends BaseService<Flight> {
@@ -48,8 +49,22 @@ public class FlightService extends BaseService<Flight> {
         return super.save(flight);
     }
 
-    public Flight findFlightByFlightNumberAndDate(Timestamp flightDate, int flightNumber, String flightCarrier) {
-        return repository.findFlightByFlightNumberAndDate(flightDate, flightNumber, flightCarrier);
+    public Flight findFlightByFlightNumberAndDate(Flight flight) {
+        return repository.findFlightByFlightNumberAndDate(flight);
     }
 
+    @Transactional
+    public Flight incrementCapacityTenPercent(Flight flight) {
+        if(flight.getId() == null) {
+            flight = repository.findFlightByFlightNumberAndDate(flight);
+        } else {
+            Optional<Flight> optionalFlight = repository.findById(flight.getId());
+
+            if (optionalFlight.isPresent()) {
+                flight = optionalFlight.get();
+            }
+        }
+
+        return repository.incrementCapacityTenPercent(flight);
+    }
 }

@@ -11,11 +11,11 @@ import org.hibernate.annotations.NamedQuery;
 })
 public class Route extends BaseModel {
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "from_id", referencedColumnName = "id")
     private Airport from;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "to_id", referencedColumnName = "id")
     private Airport to;
 

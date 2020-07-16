@@ -3,23 +3,22 @@ package com.finartz.demo.airlineticketing.model;
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "flight")
+@Table(name = "flight", uniqueConstraints = @UniqueConstraint(columnNames={"flight_number", "flight_date", "flight_carrier_id"}))
 @NamedQueries({
         @NamedQuery(name = "findFlightByFlightNumberDateCarrier",
                 query = "SELECT f FROM Flight f WHERE (f.flightDate = :flightDate) AND (f.flightNumber = :flightNumber) AND (f.flightCarrier.shortCode = :fcShortCode)")
 })
 public class Flight extends BaseModel{
-    @Column(name = "flight_carrier", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "flight_carrier_id", referencedColumnName = "id")
     private Airline flightCarrier;
 
-    @Column(name = "route", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "route_id", referencedColumnName = "id")
     private Route route;
 
     @Column
@@ -99,8 +98,8 @@ public class Flight extends BaseModel{
     @Override
     public String toString() {
         return "Flight{" +
-                "flightCarrier=" + flightCarrier +
-                ", route=" + route +
+                "flightCarrier=" + flightCarrier.toString() +
+                ", route=" + route.toString() +
                 ", capacity=" + capacity +
                 ", ticketCharge=" + ticketCharge +
                 ", flightDate=" + flightDate +

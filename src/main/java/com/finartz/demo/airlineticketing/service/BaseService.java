@@ -19,4 +19,8 @@ public abstract class BaseService<T extends BaseModel> {
     public Optional<T> findById(Long id) {
         return repository.findById(id);
     }
+
+    public void deleteById(long id) {
+        repository.deleteById(id);
+    }
 }

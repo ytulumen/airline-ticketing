@@ -2,6 +2,7 @@ package com.finartz.demo.airlineticketing.repository;
 
 import com.finartz.demo.airlineticketing.model.BaseModel;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -79,7 +80,7 @@ public abstract class BaseRepository<T extends BaseModel> implements CrudReposit
 
     @Override
     public void deleteById(Long aLong) {
-
+        delete(entityManager.find(clazz, aLong));
     }
 
     @Override

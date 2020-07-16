@@ -4,12 +4,7 @@ import com.finartz.demo.airlineticketing.model.Flight;
 import com.finartz.demo.airlineticketing.service.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.sql.Timestamp;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "flight")
@@ -17,11 +12,21 @@ public class FlightController extends BaseController<Flight> {
     @Autowired
     private FlightService flightService;
 
-    @GetMapping(path = "/findFlight/flightCarrier={flightCarrier}/flightNumber={flightNumber}/flightDate={flightDate}",
+/*    @GetMapping(path = "/findFlight/flightCarrier={flightCarrier}/flightNumber={flightNumber}/flightDate={flightDate}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Flight get(@PathVariable("flightCarrier") String flightCarrier,
                       @PathVariable("flightNumber") int flightNumber,
-                      @PathVariable("flightDate") Timestamp flightDate) {
-        return flightService.findFlightByFlightNumberAndDate(flightDate, flightNumber, flightCarrier);
+                      @PathVariable("flightDate") String flightDate) {
+        return flightService.findFlightByFlightNumberAndDate(Timestamp.valueOf(flightDate), flightNumber, flightCarrier);
+    }*/
+
+    @PostMapping(path = "/findFlight", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Flight getFlights(@RequestBody Flight flight) {
+        return flightService.findFlightByFlightNumberAndDate(flight);
+    }
+
+    @PutMapping(path = "/incrementCapacityTenPercent", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Flight incrementCapacityTenPercent(@RequestBody Flight flight) {
+        return flightService.incrementCapacityTenPercent(flight);
     }
 }

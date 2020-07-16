@@ -1,27 +1,27 @@
 package com.finartz.demo.airlineticketing.model;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "ticket")
 public class Ticket extends BaseModel{
-    @OneToOne
-    @JoinColumn(name = "flight", referencedColumnName = "id")
-    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    @ManyToOne
+    @JoinColumn(name = "flight_id", referencedColumnName = "id")
     private Flight flight;
 
     @Column
     private float price;
 
+    @Column(name = "credit_card_number", nullable = false, length = 16)
+    private String creditCardNumber;
+
     public Ticket() {
     }
 
-    public Ticket(Flight flight, float price) {
+    public Ticket(Flight flight, float price, String creditCardNumber) {
         this.flight = flight;
         this.price = price;
+        this.creditCardNumber = creditCardNumber;
     }
 
     public Flight getFlight() {
@@ -40,11 +40,20 @@ public class Ticket extends BaseModel{
         this.price = price;
     }
 
+    public String getCreditCardNumber() {
+        return creditCardNumber;
+    }
+
+    public void setCreditCardNumber(String creditCardNumber) {
+        this.creditCardNumber = creditCardNumber;
+    }
+
     @Override
     public String toString() {
         return "Ticket{" +
-                "flight=" + flight +
+                "flight=" + flight.toString() +
                 ", price=" + price +
+                ", creditCardNumber='" + creditCardNumber + '\'' +
                 '}';
     }
 }

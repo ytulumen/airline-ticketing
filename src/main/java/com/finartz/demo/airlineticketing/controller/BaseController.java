@@ -1,6 +1,5 @@
 package com.finartz.demo.airlineticketing.controller;
 
-import com.finartz.demo.airlineticketing.exception.ObjectNotFoundException;
 import com.finartz.demo.airlineticketing.model.BaseModel;
 import com.finartz.demo.airlineticketing.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +24,13 @@ public abstract class BaseController<T extends BaseModel> {
     }
 
     @GetMapping(path = "/findById/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public T findById(@PathVariable("id") final Long id) throws ObjectNotFoundException {
+    public T findById(@PathVariable("id") final Long id) {
         Optional<T> optional = service.findById(id);
 
         if (optional.isPresent()) {
             return optional.get();
         }
-
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Object not found with id: " + id);
+        System.out.println("exceptiooon");
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Object not found with id: ");
     }
 }
