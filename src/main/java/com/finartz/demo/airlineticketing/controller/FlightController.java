@@ -12,14 +12,6 @@ public class FlightController extends BaseController<Flight> {
     @Autowired
     private FlightService flightService;
 
-/*    @GetMapping(path = "/findFlight/flightCarrier={flightCarrier}/flightNumber={flightNumber}/flightDate={flightDate}",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public Flight get(@PathVariable("flightCarrier") String flightCarrier,
-                      @PathVariable("flightNumber") int flightNumber,
-                      @PathVariable("flightDate") String flightDate) {
-        return flightService.findFlightByFlightNumberAndDate(Timestamp.valueOf(flightDate), flightNumber, flightCarrier);
-    }*/
-
     @PostMapping(path = "/findFlight", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Flight getFlights(@RequestBody Flight flight) {
         return flightService.findFlightByFlightNumberAndDate(flight);

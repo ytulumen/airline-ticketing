@@ -28,15 +28,4 @@ public class Swagger2Config {
                 description("BACKEND WEB SERVICES OF AIRLINE TICKETING REST API").
                 contact(new Contact("Yasin Tulumen", "https://www.linkedin.com/in/yasin-tulumen-3b958a89/", "yasinn.tulumenn@gmail.com")).build();
     }
-/*
-    @Bean
-    public WebMvcConfigurer webMvcConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addResourceHandlers(ResourceHandlerRegistry registry) {
-                registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources");
-                registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-            }
-        };
-    }*/
 }
